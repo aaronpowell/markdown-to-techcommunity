@@ -4,6 +4,7 @@ import { readFile } from "fs/promises";
 const customLanguageMap: { [key: string]: string } = {
   typescript: "javascript",
   yml: "yaml",
+  ts: "javascript",
 };
 
 const renderer = {
