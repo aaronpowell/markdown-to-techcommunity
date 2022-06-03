@@ -1,10 +1,12 @@
-import marked, { MarkedExtension } from "marked";
+import marked from "marked";
 import { readFile } from "fs/promises";
+import { fetch } from "undici";
 
 const customLanguageMap: { [key: string]: string } = {
   typescript: "javascript",
   yml: "yaml",
   ts: "javascript",
+  tsx: "javascript",
 };
 
 const renderer = {
@@ -13,14 +15,20 @@ const renderer = {
 
     return `
     <li-code lang="${customLanguageMap[trimmedLanguage] || trimmedLanguage}">
-${code.replace("<", "&lt;").replace(">", "&gt;")}
+${code.replaceAll("<", "&lt;").replaceAll(">", "&gt;")}
     </li-code>
     `;
   },
 };
 
 async function run(path: string) {
-  const md = await readFile(path, "utf8");
+  let md: string;
+  if (path.startsWith("https")) {
+    const response = await fetch(path);
+    md = await response.text();
+  } else {
+    md = await readFile(path, "utf8");
+  }
   marked.use({ renderer });
   const html = marked.parse(md);
   console.log(html);

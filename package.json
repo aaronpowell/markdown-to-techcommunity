@@ -1,7 +1,8 @@
 {
   "dependencies": {
     "marked": "^3.0.7",
-    "typescript": "^4.4.4"
+    "typescript": "^4.4.4",
+    "undici": "^5.4.0"
   },
   "devDependencies": {
     "@types/marked": "^3.0.1",
