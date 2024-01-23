@@ -14,9 +14,7 @@ const renderer = {
     const trimmedLanguage = language?.split(" ")[0] || "";
 
     return `
-    <li-code lang="${customLanguageMap[trimmedLanguage] || trimmedLanguage}">
-${code.replaceAll("<", "&lt;").replaceAll(">", "&gt;")}
-    </li-code>
+    <li-code lang="${customLanguageMap[trimmedLanguage] || trimmedLanguage}">${code.replaceAll("<", "&lt;").replaceAll(">", "&gt;")}</li-code>
     `;
   },
 };
